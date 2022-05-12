@@ -1,0 +1,9 @@
+---
+controller_groups:
+  - name: rhel8
+    inventory: Linux servers
+    variables:
+      some_var: some_val
+    hosts:
+      - rhel8c.sudo.net
+...

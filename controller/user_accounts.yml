@@ -1,0 +1,6 @@
+---
+controller_user_accounts:
+  - user: automation_user
+    is_superuser: false
+    password: redhat123
+...

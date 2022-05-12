@@ -1,0 +1,70 @@
+---
+- name: Playbook to configure ansible Controller post installation
+  hosts: localhost
+  connection: local
+  vars:
+    # Define following vars here, or in configs/controller_auth.yml
+    controller_validate_certs: false
+    controller_username: admin
+    controller_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          32656537316230666662363130373538326161663366373731653535613664323930353332303236
+          3237613130656439363031313864306562643066623130620a303136616131343163643862613831
+          37666665396539343131326334323530313863636131393335393137363931663863366462316330
+          6664363866646161310a643939383436373331613738343761316133303830323436643734326139
+          3337
+  collections:
+    - ansible.controller
+    - redhat_cop.controller_configuration
+  pre_tasks:
+    - name: Include vars from configs directory
+      include_vars:
+        dir: ./controller
+        ignore_files: [controller_config.yml.template]
+        extensions: ["yml"]
+      tags:
+        - always
+  roles:
+    - {role: settings, when: controller_settings is defined, tags: settings}
+    - {role: organizations, when: controller_organizations is defined, tags: organizations}
+    - {role: labels, when: controller_labels is defined, tags: labels}
+    - {role: users, when: controller_user_accounts is defined, tags: users}
+    - {role: teams, when: controller_teams is defined, tags: teams}
+    - {role: credentials, when: controller_credentials is defined, tags: credentials}
+    - {role: projects, when: controller_projects is defined, tags: projects}
+    - {role: inventories, when: controller_inventories is defined, tags: inventories}
+    - {role: hosts, when: controller_hosts is defined, tags: hosts}
+    - {role: groups, when: controller_groups is defined, tags: inventories}
+    - {role: job_templates, when: controller_templates is defined, tags: job_templates}
+    - {role: notification_templates, when: controller_notifications is defined, tags: notification_templates}
+      #    - {role: schedules, when: controller_schedules is defined, tags: schedules}
+    - {role: workflow_job_templates, when: controller_workflows is defined, tags: workflow_job_templates}
+    - {role: roles, when: controller_roles is defined, tags: roles}
+
+  tasks:
+    - name: Set schedule to be default off
+      set_fact:
+        schedules_activation: False
+
+    - name: Fetch local cluster install uuid
+      uri:
+        url: https://{{ controller_fqdn }}/api/v2/ping/
+        validate_certs: false
+      register: local_cluster
+
+    - name: Fetch cluster install uuid via the load balancer
+      uri:
+        url: https://{{ load_balancer_fqdn }}/api/v2/ping/
+        validate_certs: false
+      register: ldb_cluster
+
+    - name: Set schedule mode depending on if we are active cluster or not
+      set_fact:
+        schedules_activation: True
+      when: local_cluster.json.install_uuid in ldb_cluster.json.install_uuid
+
+    - name: Include schedules role
+      include_role:
+        name: schedules
+      when: controller_schedules is defined
+      tags: schedules

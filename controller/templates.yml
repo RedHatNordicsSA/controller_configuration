@@ -1,0 +1,72 @@
+---
+# Only Job name, type, project and playbook are required
+# Survey spec can be exported from existing job template using:
+# tower-cli job_template survey --name="my job template" -f yaml
+# https://github.com/ansible/tower-cli/blob/master/docs/source/cli_ref/usage/SURVEYS.rst
+controller_templates:
+  - name: Demo 1 2 3
+    description: Demoing
+    job_type: run
+    inventory: Linux servers
+    labels:
+      - Prod
+    credentials: Linux admin user
+    project: Linux team playbooks
+    playbook: ping.yml
+    verbosity: 0
+
+  - name: Check if rhel8c is alive
+    description: Login to rhel8c and see if a command returns output
+    job_type: run
+    inventory: Linux servers
+    labels:
+      - Prod
+    credentials: Linux admin user
+    project: Linux team playbooks
+    playbook: ping.yml
+    verbosity: 0
+
+  - name: Login to rhel8c
+    description: Login to rhel8c and see if a command returns output
+    job_type: run
+    inventory: Linux servers
+    labels:
+      - Prod
+    credentials: Linux admin user
+    project: Linux team playbooks
+    playbook: ping.yml
+    verbosity: 0
+
+  - name: Automation as code demo
+    description: Demo
+    job_type: run
+    inventory: Linux servers
+    labels:
+      - Prod
+    credentials: Linux admin user
+    project: Linux team playbooks
+    playbook: ping.yml
+    verbosity: 0
+
+  - name: LCM pre-check
+    description: Prerequisites checks before patching
+    job_type: run
+    inventory: Linux servers
+    labels:
+      - lcm-poc
+    credentials: Linux admin user
+    project: lcm-poc
+    playbook: prerequisites.yml
+    verbosity: 0
+
+  - name: LCM patching
+    description: Patch system and reboot if software was updated
+    job_type: run
+    inventory: Linux servers
+    labels:
+      - lcm-poc
+    credentials: Linux admin user
+    project: lcm-poc
+    playbook: patch.yml
+    verbosity: 0
+...

@@ -1,0 +1,12 @@
+---
+controller_roles:
+  - user: automation_user
+    target_team: automation-users
+    role: member
+  - workflow: LCM workflow
+    team: automation-users
+    role: execute
+  - job_template: Check if rhel8c is alive
+    team: automation-users
+    role: execute
+...

@@ -1,0 +1,10 @@
+---
+# Commented out content is serving as example for you to add new content.
+controller_inventories:
+  - name: localhost
+    description: inventory for localhost
+    organization: Default
+  - name: Linux servers
+    description: Linux servers
+    organization: Default
+...

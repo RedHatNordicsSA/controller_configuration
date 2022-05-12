@@ -1,0 +1,5 @@
+---
+controller_teams:
+  - name: automation-users
+    organization: Default
+...
