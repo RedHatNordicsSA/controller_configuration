@@ -1,7 +1,0 @@
----
-controller_schedules:
-  - name: Patch windows for rhel8c
-    description: Patch window for system rhel8c
-    rrule: "DTSTART:20191219T130551Z RRULE:FREQ=DAILY;INTERVAL=1;COUNT=1"
-    unified_job_template: LCM workflow
-...
