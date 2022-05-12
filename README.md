@@ -23,7 +23,7 @@ Bootstrap script.
 ![Alt text](img/details-aap.png?raw=true "Details")
 
 # Detailed execution flow and responsibilities
-![Alt text](img/details-aap.png?raw=true "Details")
+![Alt text](img/flow-aap.png?raw=true "Details")
 
 # Red Hat Communities of Practice Controller Configuration Collection
 
