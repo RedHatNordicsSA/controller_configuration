@@ -3,7 +3,7 @@ controller_projects:
   - name: Customer Configuration - Customer X
     scm_type: git
     scm_url: https://github.com/RedHatNordicsSA/customer-x-as-code
-    scm_branch: master
+    scm_branch: main
     scm_clean: true
     scm_delete: true
     description: Customer X - as code
