@@ -1,6 +1,6 @@
 # controller_configuration
-Reference architecture for a highly available Ansible Automation Platform controller setup.
-* Heavily based on https://github.com/redhat-cop/controller_configuration
+Example architecture for a highly available Ansible Automation Platform controller setup.
+* Almost completely based on https://github.com/redhat-cop/controller_configuration
 
 ![Alt text](img/overview-aap.png?raw=true "Overview")
 
