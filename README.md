@@ -1,15 +1,16 @@
 # controller_configuration
 Reference architecture for a highly available Ansible Automation Platform controller setup.
+Heavily based on https://github.com/redhat-cop/controller_configuration
 
 Consists of load balancer in front of two separate AAP clusters, both which are online all the time.
-One cluster is active, and provides interface for users, API calls and runs schedules. The other cluser is standing by to receive traffic from the load balancer if case of failure.
+One cluster is active, and provides an interface for users, API calls and runs scheduled tasks. The other cluser is standing by to receive traffic from the load balancer in case of failure.
 
 # Key advantages
-* Convergence time is very short. Time passed from going down to service coming up again can in this way be as little as can be provided by the load balancer, likely around 1-3 seconds. Making this a good fit for automation which must not fail.
+* Convergence time is very short (1-3 seconds). Time passed from going down to service coming up again can in this way be as little as can be provided by the load balancer. That makes this a good fit for usecases when automation must not fail.
 * Allows for blue-green type upgrades, also between major releases (AAP 1.2 -> 2.1), further reducing risk and increasing availability.
 
 # Key consideration
-Users should not be provided write access in AAP, all changes should be done via git. Otherwise the two clusters _will_ at some point differ and HA is no longer provided.
+Users should _not_ be provided write access in AAP, all changes should be done via git using an integration user. Otherwise the two clusters _will_ at some point differ and HA is no longer provided for all automation.
 
 # To be done
 Bootstrap script.
