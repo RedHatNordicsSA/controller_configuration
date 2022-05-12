@@ -1,7 +1,5 @@
 ---
 controller_organizations:
-  - name: Default
-    galaxy_credentials: "Red Hat Cloud Automation Hub"
   - name: Customer X
     galaxy_credentials:
       - "Red Hat Cloud Automation Hub"
