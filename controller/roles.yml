@@ -1,5 +1,5 @@
 ---
 controller_roles:
   - user: "customer-x-integration"
-    team: "customer-x"
-    role: admin
+    organization: "customer-x"
+    role: "admin"
