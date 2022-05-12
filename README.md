@@ -1,6 +1,6 @@
 # controller_configuration
 Reference architecture for a highly available Ansible Automation Platform controller setup.
-Heavily based on https://github.com/redhat-cop/controller_configuration
+* Heavily based on https://github.com/redhat-cop/controller_configuration
 
 Consists of load balancer in front of two separate AAP clusters, both which are online all the time.
 One cluster is active, and provides an interface for users, API calls and runs scheduled tasks. The other cluser is standing by to receive traffic from the load balancer in case of failure.
@@ -10,7 +10,8 @@ One cluster is active, and provides an interface for users, API calls and runs s
 * Allows for blue-green type upgrades, also between major releases (AAP 1.2 -> 2.1), further reducing risk and increasing availability.
 
 # Key consideration
-Users should _not_ be provided write access in AAP, all changes should be done via git using an integration user. Otherwise the two clusters _will_ at some point differ and HA is no longer provided for all automation.
+* Users need to reside in LDAP for this setup to work at scale. Map users to teams and organization using LDAP mapping described here: https://docs.ansible.com/automation-controller/latest/html/administration/ldap_auth.html#ldap-organization-and-team-mapping 
+* Users should _not_ be provided write access in AAP, all changes should be done via git using an integration user. Otherwise the two clusters _will_ at some point differ and HA is no longer provided for all automation.
 
 # To be done
 Bootstrap script.
