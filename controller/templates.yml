@@ -15,9 +15,9 @@ controller_templates:
     credentials:
       - "automationvault"
     extra_vars:
-      customer_organization: "customer-x"
-      customer_git_repo: "https://github.com/RedHatNordicsSA/customer-x-as-code"
-      controller_hostname: "aap2one.sudo.net"
-      controller_fqdn: "aap2one.sudo.net"
-      load_balancer_fqdn: "aap2one.sudo.net"
+      customer_organization: customer-x
+      customer_git_repo: https://github.com/RedHatNordicsSA/customer-x-as-code
+      controller_hostname: aap2one.sudo.net
+      controller_fqdn: aap2one.sudo.net
+      load_balancer_fqdn: aap2one.sudo.net
 ...
