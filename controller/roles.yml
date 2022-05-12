@@ -1,8 +1,8 @@
 ---
 controller_roles:
-  - team: "customer-x"
-    organization: "customer-x"
-    role: "member"
   - user: "customer-x-integration"
     team: "customer-x"
+    role: admin
+  - user: "customer-x-integration"
+    organization: "customer-x"
     role: admin
