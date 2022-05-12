@@ -12,9 +12,11 @@ controller_templates:
     project: "controller_configuration"
     playbook: aap-synchronization.yml
     verbosity: 0
+    credentials:
+      - "automationvault"
     extra_vars:
-    - customer_organization: "customer-x"
-    - controller_hostname: "aap2one.sudo.net"
-    - controller_fqdn: "aap2one.sudo.net"
-    - load_balancer_fqdn: "aap2one.sudo.net"
+      customer_organization: "customer-x"
+      controller_hostname: "aap2one.sudo.net"
+      controller_fqdn: "aap2one.sudo.net"
+      load_balancer_fqdn: "aap2one.sudo.net"
 ...
