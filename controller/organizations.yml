@@ -1,6 +1,6 @@
 ---
 controller_organizations:
-  - name: Customer X
+  - name: customer-x
     galaxy_credentials:
       - "Red Hat Cloud Automation Hub"
       - "Ansible Galaxy"
