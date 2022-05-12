@@ -5,7 +5,8 @@ controller_projects:
     scm_url: https://github.com/RedHatNordicsSA/customer_configuration
     scm_branch: devel
     scm_clean: true
-    scm_delete: true
+    scm_delete_on_update: true
+    scm_update_on_launch: true
     description: Customer automation - as code
     organization: Default
     wait: true
