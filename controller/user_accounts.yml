@@ -1,6 +1,6 @@
 ---
 controller_user_accounts:
-  - user: automation_user
+  - user: customer_x_integration
     is_superuser: false
     password: redhat123
 ...

@@ -1,5 +1,7 @@
 ---
 controller_teams:
-  - name: automation-users
+  - name: controller-admins
     organization: Default
+  - name: company-x
+    organization: company-x
 ...

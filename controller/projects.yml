@@ -1,21 +1,12 @@
 ---
 controller_projects:
-  - name: Linux team playbooks
+  - name: Customer Configuration - Customer X
     scm_type: git
-    scm_url: https://github.com/mglantz/ansible-playbooks
+    scm_url: https://github.com/RedHatNordicsSA/customer-x-as-code
     scm_branch: master
     scm_clean: true
-    description: The Linux team's playbooks
-    organization: Default
-    wait: true
-    update: true
-
-  - name: lcm-poc
-    scm_type: git
-    scm_url: https://github.com/mglantz/lcm-poc
-    scm_branch: main
-    scm_clean: true
-    description: Life Cycle Management PoC playbooks
+    scm_delete: true
+    description: Customer X - as code
     organization: Default
     wait: true
     update: true
