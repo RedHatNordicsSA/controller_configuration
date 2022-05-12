@@ -2,4 +2,4 @@
 controller_roles:
   - user: "customer-x-integration"
     organization: "customer-x"
-    role: "admin"
+    role: member
