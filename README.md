@@ -12,6 +12,7 @@ Consists of load balancer in front of two separate AAP clusters, both which are 
 * The simple nature of the setup makes it robust and easier to manage than setups which depends on database replication or other infrastructure based HA functions.
 
 # Key consideration
+* Requires web hook integration from version control system or CI-engine which monitors repos to controller/customer synchronization job templates.
 * Users need to reside in LDAP for this setup to work at scale. Map users to teams and organization using LDAP mapping described here: https://docs.ansible.com/automation-controller/latest/html/administration/ldap_auth.html#ldap-organization-and-team-mapping 
 * Users should _not_ be provided write access in AAP, all changes should be done via git using an integration user. Otherwise the two clusters _will_ at some point differ and HA is no longer provided for all automation.
 
