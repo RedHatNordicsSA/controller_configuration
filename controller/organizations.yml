@@ -3,5 +3,8 @@ controller_organizations:
   - name: Default
     galaxy_credentials: "Red Hat Cloud Automation Hub"
   - name: Customer X
-    galaxy_credentials: "Red Hat Cloud Automation Hub"
+    galaxy_credentials:
+      - "Red Hat Cloud Automation Hub"
+      - "Ansible Galaxy"
+    max_hosts: 1000
 ...

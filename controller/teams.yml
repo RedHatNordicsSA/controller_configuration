@@ -2,6 +2,6 @@
 controller_teams:
   - name: controller-admins
     organization: Default
-  - name: company-x
-    organization: company-x
+  - name: customer-x
+    organization: customer-x
 ...
