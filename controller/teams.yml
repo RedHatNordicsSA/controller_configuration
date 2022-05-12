@@ -1,7 +1,0 @@
----
-controller_teams:
-  - name: controller-admins
-    organization: Default
-  - name: customer-x
-    organization: customer-x
-...
