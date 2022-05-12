@@ -9,7 +9,7 @@ controller_templates:
     job_type: run
     inventory: "Demo Inventory"
     credentials: "automationvault"
-    project: "controller_configuration"
+    project: "customer_configuration"
     playbook: aap-synchronization.yml
     verbosity: 0
     credentials:
