@@ -3,7 +3,7 @@ controller_projects:
   - name: customer_configuration
     scm_type: git
     scm_url: https://github.com/RedHatNordicsSA/customer_configuration
-    scm_branch: main
+    scm_branch: devel
     scm_clean: true
     scm_delete: true
     description: Customer automation - as code
