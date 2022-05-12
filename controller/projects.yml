@@ -1,12 +1,12 @@
 ---
 controller_projects:
-  - name: Customer Configuration - Customer X
+  - name: customer_configuration
     scm_type: git
     scm_url: https://github.com/RedHatNordicsSA/customer_configuration
     scm_branch: main
     scm_clean: true
     scm_delete: true
-    description: Customer X - as code
+    description: Customer automation - as code
     organization: Default
     wait: true
     update: true
