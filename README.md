@@ -11,6 +11,7 @@ Consists of load balancer in front of two separate AAP clusters, both which are 
 
 ## Key advantage
 * Supports full disaster recovery and 99,999% high availability
+* Supports air-gapped on-premise or cloud type installations.
 * Convergence time is very short (1-3 seconds). Time passed from going down to service coming up again can in this way be as little as can be provided by the load balancer. That makes this a good fit for usecases when automation must not fail.
 * Allows for blue-green type upgrades, also between major releases (AAP 1.2 -> 2.1), this further reduces risk and increases availability.
 * The simple nature of the setup makes it robust and easier to manage than setups which depends on database replication or other infrastructure based HA functions.
@@ -32,6 +33,7 @@ Here's how to get started on implementing this architecture.
 Don't re-use this repository for anything else than test purposes. This repository and related ones are here to inspire you regarding what is possible. It is not:
 1. Maintained to always be in sync with https://github.com/redhat-cop/controller_configuration
 2. Production grade (all changes tested, vetted, etc)
+If you think this is a good idea, do this yourself in repositories you control.
 
 ## Prerequisites
 1. Two preferrably empty Ansible Automation Platform controller clusters. Installation guide: https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.1/html/red_hat_ansible_automation_platform_installation_guide/index
@@ -44,12 +46,15 @@ Don't re-use this repository for anything else than test purposes. This reposito
 
 ### Overview
 ![Alt text](img/overview-aap.png?raw=true "Overview")
+Above you can see two separate AAP clusters installed in two separate data centers, receiving traffic from a load balancer.
 
 ### Overview - Execution flow
 ![Alt text](img/details-aap.png?raw=true "Details")
+Job templates which controls the configuration state in the clusters are triggered from a version control system web hook or CI-enginee, so that changes are applied when they are merged to git.
 
 ### Detailed execution flow and responsibilities
 ![Alt text](img/flow-aap.png?raw=true "Details")
+This setup supports a strong separation of responsiblity while allowing customers of the platform to own and manage their own configuration stored in separate git repositories.
 
 ## Installation (demo)
 On _both_ your AAP controller clusters:
