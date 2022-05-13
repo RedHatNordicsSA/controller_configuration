@@ -58,6 +58,10 @@
         validate_certs: false
       register: ldb_cluster
 
+    - name: Debug
+      debug:
+        msg: "Ldb install_uuid: {{ ldb_cluster.json.install.uuid }} and local_cluster install_uuid: {{ local_cluster.json.install_uuid }}"
+
     - name: Set schedule mode depending on if we are active cluster or not
       set_fact:
         schedules_activation: True
