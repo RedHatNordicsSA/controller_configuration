@@ -14,6 +14,7 @@ controller_templates:
     verbosity: 0
     credentials:
       - "automationvault"
+      - "customer-x | customer-x"
     extra_vars:
       customer_organization: customer-x
       customer_git_repo: https://github.com/RedHatNordicsSA/customer-x-as-code
