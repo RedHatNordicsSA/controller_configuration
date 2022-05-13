@@ -52,13 +52,9 @@
         validate_certs: false
       register: local_cluster
 
-    - name: Convert to json
-      set_fact:
-        local_uuid: "{{ local_cluster | from_json }}"
-
     - name: Debug
       debug:
-        msg: "{{ local_uuid.json[0].install_uuid }}"
+        msg: "{{ local_uuid.json }}"
       
     - name: Fetch cluster install uuid via the load balancer
       uri:
