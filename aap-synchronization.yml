@@ -59,7 +59,7 @@
         msg: "{{ local_data.ansible_facts._raw_params.install_uuid }}"
       
     - name: Fetch cluster install uuid via the load balancer
-      command: "curl -k https://{{ load_balancer_fqdn }}/api/v2/ping/"
+      command: curl -k -H "'X-Forwarded-For': '127.0.0.1'" "https://{{ load_balancer_fqdn }}/api/v2/ping/"
       register: ldb_cluster
 
     - name: Load balancer conversion of curl data to json
