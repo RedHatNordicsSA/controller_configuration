@@ -52,7 +52,7 @@
         validate_certs: false
       register: local_cluster
 
-    - name: Debug
+    - name: Local cluster install uuid
       debug:
         msg: "{{ local_cluster.json.install_uuid }}"
       
@@ -61,19 +61,15 @@
         url: https://{{ load_balancer_fqdn }}/api/v2/ping/
         validate_certs: false
       register: ldb_cluster
-
-    - name: Convert to json
-      set_fact:
-        ldb_result: "{{ ldb_cluster.stdout | from_json }}"
-
-    - name: Debug
+        
+    - name: Load balancer install uuid
       debug:
-        msg: "{{ ldb_result }}"
+        msg: "{{ ldb_cluster.json.install_uuid }}"
 
     - name: Set schedule mode depending on if we are active cluster or not
       set_fact:
         schedules_activation: True
-      when: local_cluster.json.install_uuid in ldb_cluster.json.install_uuid
+      when: local_cluster.json.install_uuid == ldb_cluster.json.install_uuid
 
     - name: Include schedules role
       include_role:
