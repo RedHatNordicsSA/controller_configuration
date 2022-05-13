@@ -1,5 +1,8 @@
 # controller_configuration
 Example architecture for a highly available Ansible Automation Platform controller setup which provides automation as a service.
+
+If you are not planning of providing automation as a service for others, ignore the https://github.com/RedHatNordicsSA/customer* repositories.
+
 * Almost completely based on https://github.com/redhat-cop/controller_configuration
 
 ![Alt text](img/overview-aap.png?raw=true "Overview")
