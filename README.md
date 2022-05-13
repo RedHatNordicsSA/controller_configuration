@@ -52,7 +52,7 @@ Job templates which controls the configuration state in the clusters are trigger
 
 ### Detailed execution flow and responsibilities
 ![Alt text](img/flow-aap.png?raw=true "Details")
-This setup supports a strong separation of responsiblity while allowing customers of the platform to own and manage their own configuration stored in separate git repositories. Automation is kept in separate git respositories, as accordingly:
+This setup supports a strong separation of responsiblity while allowing customers of the platform to own and manage their own configuration stored in separate git repositories. A bootstrap script configures the initial items in an empty cluster, this does initial config and creates a job template which configures the rest. Automation is kept in separate git respositories, as accordingly:
 * Playbook and collection which configures the platform itself, plus setting up customers sync jobs: https://github.com/RedHatNordicsSA/controller_configuration
 * Playbook and collection which applies the customers automation (it's here you define what people are allowed to do): https://github.com/RedHatNordicsSA/customer_configuration
 * Customers configuration: https://github.com/RedHatNordicsSA/customer-x-as-code
