@@ -54,7 +54,7 @@
 
     - name: Convert to json
       set_fact:
-        local_uuid: "{{ local_cluster.stdout | from_json }}"
+        local_uuid: "{{ local_cluster | from_json }}"
 
     - name: Debug
       debug:
