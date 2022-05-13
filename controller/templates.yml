@@ -18,7 +18,7 @@ controller_templates:
       customer_organization: customer-x
       customer_git_repo: https://github.com/RedHatNordicsSA/customer-x-as-code
       customer_git_branch: main
-      controller_hostname: aap2one.sudo.net
-      controller_fqdn: aap2one.sudo.net
+      controller_hostname: "{{ controller_hostname }}"
+      controller_fqdn: "{{ controller_fqdn }}"
       load_balancer_fqdn: aap2one.sudo.net
 ...
