@@ -72,7 +72,7 @@ chmod 600 ~/.bootstrap.cfg
 vi ~/.bootstrap.cfg
 ```
 
-3. Run bootstrap
+3. Run bootstrap script. This will setup the initial job template which will full in all the other configuration.
 ```
 ./bootstrap.sh
 ```
@@ -114,7 +114,9 @@ controller_templates:
       customer_organization: customer-y
       customer_git_repo: https://github.com/RedHatNordicsSA/customer-y-as-code
       customer_git_branch: main
-      load_balancer_fqdn: loadbalancer.domain.suffix
+      controller_hostname: "{{ controller_hostname }}"
+      controller_fqdn: "{{ controller_fqdn }}"
+      load_balancer_fqdn: "{{ load_balancer_fqdn }}"
 ```
 
 # Red Hat Communities of Practice Controller Configuration Collection
