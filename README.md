@@ -77,14 +77,16 @@ vi ~/.bootstrap.cfg
 ./bootstrap.sh
 ```
 
-4. Run the "Controller Synchronization" job template
-5. Run the "Customer synchronization - Customer X" job template
-6. Observe, adapt.
-7. Connect CI-engine or version control system web hooks to run "Controller Synchronization" and "Customer synchronization - Customer X" job templates.
-8. Connect monitoring system or advanced load blanacer to run "Controller Synchronization" and "Customer synchronization - Customer X" job templates at a point of failure.
+4. Create a vault on both clusters named "customer-x" with vault-id "customer-x", password redhat123. This mimics the customer manually adding the vault which keeps their secrets secret from the platform administrators.
+5. Run the "Controller Synchronization" job template
+6. Run the "Customer synchronization - Customer X" job template
+7. Observe, adapt.
+8. Connect CI-engine or version control system web hooks to run "Controller Synchronization" and "Customer synchronization - Customer X" job templates.
+9. Connect monitoring system or advanced load blanacer to run "Controller Synchronization" and "Customer synchronization - Customer X" job templates at a point of failure.
 
 ## Setup (demo)
 To add a new customer, you need:
+* Add a vault "customer-y" with id "customer-y" manually in both clusters.
 * A repository which holds the configuration, such as: https://github.com/RedHatNordicsSA/customer-x-as-code
 * Define the following in https://github.com/RedHatNordicsSA/controller_configuration/tree/main/controller:
 ```
@@ -110,6 +112,7 @@ controller_templates:
     verbosity: 0
     credentials:
       - "automationvault"
+      - "customer-y"
     extra_vars:
       customer_organization: customer-y
       customer_git_repo: https://github.com/RedHatNordicsSA/customer-y-as-code
