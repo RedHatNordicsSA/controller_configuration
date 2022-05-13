@@ -17,14 +17,6 @@
     - ansible.controller
     - redhat_cop.controller_configuration
   pre_tasks:
-    - name: Fetch local FQDN
-      command: hostname -f
-      register: local_hostname
-
-    - name: Set controller_hostname
-      set_fact:
-        controller_hostname: "{{ local_hostname.stdout }}"
-
     - name: Include vars from configs directory
       include_vars:
         dir: ./controller
@@ -56,7 +48,7 @@
 
     - name: Fetch local cluster install uuid
       uri:
-        url: https://{{ local_hostname.stdout }}/api/v2/ping/
+        url: https://{{ controller_fqdn }}/api/v2/ping/
         validate_certs: false
       register: local_cluster
 
