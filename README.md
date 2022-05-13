@@ -9,24 +9,71 @@ If you are not planning of providing automation as a service for others, ignore 
 
 Consists of load balancer in front of two separate AAP clusters, both which are online all the time. One cluster is active, and provides an interface for users, API calls and runs scheduled tasks. The other cluser is standing by to receive traffic from the load balancer in case of failure or if we are doing a green-blue type upgrade.
 
-# Key advantage
+## Key advantage
 * Convergence time is very short (1-3 seconds). Time passed from going down to service coming up again can in this way be as little as can be provided by the load balancer. That makes this a good fit for usecases when automation must not fail.
 * Allows for blue-green type upgrades, also between major releases (AAP 1.2 -> 2.1), further reducing risk and increasing availability.
 * The simple nature of the setup makes it robust and easier to manage than setups which depends on database replication or other infrastructure based HA functions.
 
-# Key consideration
+## Key consideration
 * Requires web hook integration from version control system or CI-engine which monitors repos to controller/customer synchronization job templates.
 * Users need to reside in LDAP for this setup to work at scale. Map users to teams and organization using LDAP mapping described here: https://docs.ansible.com/automation-controller/latest/html/administration/ldap_auth.html#ldap-organization-and-team-mapping 
 * Users should _not_ be provided write access in AAP, all changes should be done via git using an integration user. Otherwise the two clusters _will_ at some point differ and HA is no longer provided for all automation.
+* You will need to keep yourself in sync with https://github.com/redhat-cop/controller_configuration, this is currently not a difficult task, but that may not be the case in the future.
 
 # To be done
 Bootstrap script.
 
-# Overview - Execution flow
+# Getting started
+Here's how to get started on implementing this architecture.
+
+## Attention
+Don't re-use this repository for any production purposes. This repository and related ones are here to inspire you regarding what is possible. It is not:
+1. Maintained to always be in sync with https://github.com/redhat-cop/controller_configuration
+2. Production grade (all changes tested, vetted, etc)
+
+## Prerequisites
+1. Two preferrably empty Ansible Automation Platform controller clusters. Installation guide: https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.1/html/red_hat_ansible_automation_platform_installation_guide/index
+2. A Load balancer infront of your two clusters, use whatever you like for this. In production type environments, it should be a load balancing cluster stretching your two datacenters or two availability zones / locations.
+3. A version control system
+4. Web hook support in your version control system or a CI-engine which can make calls to your AAP clusters when code change.
+5. A willingness to go full automation-as-code
+
+## Architectural overview
+
+### Overview
+![Alt text](img/overview-aap.png?raw=true "Overview")
+
+### Overview - Execution flow
 ![Alt text](img/details-aap.png?raw=true "Details")
 
-# Detailed execution flow and responsibilities
+### Detailed execution flow and responsibilities
 ![Alt text](img/flow-aap.png?raw=true "Details")
+
+## Installation (demo)
+On _both_ your AAP controller clusters:
+1. Clone this repository:
+```
+git clone https://github.com/RedHatNordicsSA/controller_configuration
+```
+
+2. Adapt bootstrap configuration
+```
+cp controller_configuration/bootstrap/bootstrap.cfg-example ~/.bootstrap.cfg
+chmod 600 ~/.bootstrap.cfg
+vi ~/.bootstrap.cfg
+```
+
+3. Run bootstrap
+```
+./bootstrap.sh
+```
+
+4. Run the "Controller Synchronization" job template
+5. Run the "Customer synchronization - Customer X" job template
+6. Observe, adapt.
+7. Connect CI-engine or version control system web hooks to run "Controller Synchronization" and "Customer synchronization - Customer X" job templates.
+8. Connect monitoring system or advanced load blanacer to run "Controller Synchronization" and "Customer synchronization - Customer X" job templates at a point of failure.
+
 
 # Red Hat Communities of Practice Controller Configuration Collection
 
