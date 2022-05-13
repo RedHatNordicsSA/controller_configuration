@@ -5,7 +5,6 @@
   vars:
     # Define following vars here, or in configs/controller_auth.yml
     controller_validate_certs: false
-    controller_hostname: localhost
     controller_username: admin
     controller_password: !vault |
           $ANSIBLE_VAULT;1.1;AES256
@@ -46,6 +45,10 @@
     - name: Fetch local FQDN
       command: hostname -f
       register: local_hostname
+
+    - name: Set controller_hostname
+      set_fact:
+        controller_hostname: "{{ local_hostname.stdout }}"
 
     - name: Set schedule to be default off
       set_fact:
