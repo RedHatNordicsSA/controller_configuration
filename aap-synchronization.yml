@@ -56,7 +56,7 @@
 
     - name: Local cluster install uuid
       debug:
-        msg: "{{ local_data.json.install_uuid }}"
+        msg: "{{ local_data.ansible_facts._raw_params.install_uuid }}"
       
     - name: Fetch cluster install uuid via the load balancer
       command: "curl -k https://{{ load_balancer_fqdn }}/api/v2/ping/"
