@@ -119,6 +119,19 @@ controller_templates:
       load_balancer_fqdn: "{{ load_balancer_fqdn }}"
 ```
 
+## Magic variables in Controller Synchronization job template
+There are three variables which the bootstrap.sh script injects into your job template pointing to aap-synchronization.yml. Values are based on what you put into your settings in the bootstrap.cfg file. They are important and will therefor here be explained in greater detail.
+
+Example:
+```
+controller_hostname: aap2two.sudo.net
+controller_fqdn: aap2two.sudo.net
+load_balancer_fqdn: loadbalancer.sudo.net
+```
+* controller_hostname is used to authenticate against the AAP cluster you are configuring.
+* controller_fqdn is the FQDN used to reach the API of the cluster, can be the same as controller_hostname, we use this variable to make a call to /api/v2/ping to get an unique value called local_uuid, which identifies the cluster.
+* load_balancer_fqdn is the load balancer you have put infront of your two clusters. It is used to make a call to the AAP clusters via the load balancer address, fetch the local_uuid value from whatever cluster which answers and then we use this to compare with the value we got when asking via the local clusters FQDN - if the two are the same, we know that the load balancer is pointing to the cluster we run - if this is the case, we'll activate whatever schedules are defined, otherwise, we'll disable them - as we don't want both clusters to actively run schedules.
+
 # Red Hat Communities of Practice Controller Configuration Collection
 
 ![Ansible Lint](https://github.com/redhat-cop/controller_configuration/workflows/Ansible%20Lint/badge.svg)
