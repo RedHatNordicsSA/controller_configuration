@@ -54,13 +54,13 @@ fi
  
 if [ "$LDAP_ENABLED" == "true" ]; then
 	echo "Configuring ldap integration"
-	awx -k --conf.token=$TOKEN settings modify "AUTH_LDAP_SERVER_URI" "ldap://oneadr.net:3268"
-	awx -k --conf.token=$TOKEN settings modify "AUTH_LDAP_BIND_DN" "CN=$LDAPUSER,OU=Service-Accounts,OU=Accounts,OU=_CORP,DC=oneadr,DC=net"
-	awx -k --conf.token=$TOKEN settings modify "AUTH_LDAP_BIND_PASSWORD" "$LDAPPASS"
-	awx -k --conf.token=$TOKEN settings modify "AUTH_LDAP_GROUP_TYPE" "ActiveDirectoryGroupType"
-	awx -k --conf.token=$TOKEN settings modify  "AUTH_LDAP_USER_SEARCH" '[["OU=Users,OU=Accounts,OU=_CORP,dc=oneadr,dc=net","SCOPE_SUBTREE","(sAMAccountName=%(user)s)"],["OU=Vendors,OU=Accounts,OU=_CORP,dc=oneadr,dc=net","SCOPE_SUBTREE","(sAMAccountName=%(user)s)"]]'
-	awx -k --conf.token=$TOKEN settings modify  "AUTH_LDAP_GROUP_SEARCH" '["OU=Groups,OU=_CORP,DC=oneadr,DC=net","SCOPE_SUBTREE","(objectClass=group)"]'
-	awx -k --conf.token=$TOKEN settings modify  "AUTH_LDAP_USER_ATTR_MAP" '{"first_name": "givenName","last_name": "sn","email": "mail"}'
+	awx -k --conf.token=$TOKEN settings modify "AUTH_LDAP_SERVER_URI" $AUTH_LDAP_SERVER_URI
+	awx -k --conf.token=$TOKEN settings modify "AUTH_LDAP_BIND_DN" $AUTH_LDAP_BIND_DN
+	awx -k --conf.token=$TOKEN settings modify "AUTH_LDAP_BIND_PASSWORD" $LDAPPASS
+	awx -k --conf.token=$TOKEN settings modify "AUTH_LDAP_GROUP_TYPE" $AUTH_LDAP_GROUP_TYPE
+	awx -k --conf.token=$TOKEN settings modify  "AUTH_LDAP_USER_SEARCH" $AUTH_LDAP_USER_SEARCH
+	awx -k --conf.token=$TOKEN settings modify  "AUTH_LDAP_GROUP_SEARCH" $AUTH_LDAP_GROUP_SEARCH
+	awx -k --conf.token=$TOKEN settings modify  "AUTH_LDAP_USER_ATTR_MAP" $AUTH_LDAP_USER_ATTR_MAP
 fi
 
 echo "Fetching Controller configuration project ID"
