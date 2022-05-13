@@ -47,33 +47,29 @@
         schedules_activation: False
 
     - name: Fetch local cluster install uuid
-      command: "curl -k https://{{ controller_fqdn }}/api/v2/ping/"
+      uri:
+        url: https://{{ controller_fqdn }}/api/v2/ping/
+        validate_certs: false
       register: local_cluster
-
-    - name: Local cluster conversion of curl data to json
-      set_fact: "{{ local_cluster.stdout | from_json }}"
-      register: local_data
 
     - name: Local cluster install uuid
       debug:
-        msg: "{{ local_data.ansible_facts._raw_params.install_uuid }}"
+        msg: "{{ local_cluster.json.install_uuid }}"
       
     - name: Fetch cluster install uuid via the load balancer
-      command: "curl -k https://{{ load_balancer_fqdn }}/api/v2/ping/"
+      uri:
+        url: https://{{ load_balancer_fqdn }}/api/v2/ping/
+        validate_certs: false
       register: ldb_cluster
-
-    - name: Load balancer conversion of curl data to json
-      set_fact: "{{ ldb_cluster.stdout | from_json }}"
-      register: ldb_data
         
     - name: Load balancer install uuid
       debug:
-        msg: "{{ ldb_data.ansible_facts._raw_params.install_uuid }}"
+        msg: "{{ ldb_cluster.json.install_uuid }}"
 
     - name: Set schedule mode depending on if we are active cluster or not
       set_fact:
         schedules_activation: True
-      when: local_data.ansible_facts._raw_params.install_uuid in ldb_data.ansible_facts._raw_params.install_uuid
+      when: local_cluster.json.install_uuid in ldb_cluster.json.install_uuid
 
     - name: Include schedules role
       include_role:
