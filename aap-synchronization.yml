@@ -47,9 +47,7 @@
         schedules_activation: False
 
     - name: Fetch local cluster install uuid
-      uri:
-        url: https://{{ controller_fqdn }}/api/v2/ping/
-        validate_certs: false
+      command: "curl -k https://{{ controller_fqdn }}/api/v2/ping/"
       register: local_cluster
 
     - name: Local cluster install uuid
@@ -57,9 +55,7 @@
         msg: "{{ local_cluster.json.install_uuid }}"
       
     - name: Fetch cluster install uuid via the load balancer
-      uri:
-        url: https://{{ load_balancer_fqdn }}/api/v2/ping/
-        validate_certs: false
+      command: "curl -k https://{{ load_balancer_fqdn }}/api/v2/ping/"
       register: ldb_cluster
         
     - name: Load balancer install uuid
