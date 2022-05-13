@@ -60,7 +60,7 @@
 
     - name: Debug
       debug:
-        msg: "Ldb install_uuid: {{ ldb_cluster.json.install.uuid }} and local_cluster install_uuid: {{ local_cluster.json.install_uuid }}"
+        msg: "Ldb install_uuid: {{ ldb_cluster }} and local_cluster install_uuid: {{ local_cluster }}"
 
     - name: Set schedule mode depending on if we are active cluster or not
       set_fact:
