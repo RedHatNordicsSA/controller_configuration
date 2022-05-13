@@ -22,16 +22,25 @@ fi
 if ! grep "TOKEN" /root/.bootstrap.cfg >/dev/null; then
         echo "Did not find a configured token, creating one."
         echo "Creating login token:"
-	TOKEN=$(awx login -k --conf.useradmin admin --conf.password $ADMINPASS --conf.host $(hostname)|grep token|awk '{ print $2 }'|sed 's/"//g')
+	TOKEN=$(awx login -k --conf.useradmin admin --conf.password $ADMINPASS --conf.host https://$(hostname)|grep token|awk '{ print $2 }'|sed 's/"//g')
         echo "TOKEN=$TOKEN" >>~/.bootstrap.cfg
 fi
 
-if [ "$GIT_AUTH_ENABLED" === "true" ]; then
+if [ "$GIT_AUTH_ENABLED" == "true" ]; then
 	echo "Checking for credentials for BitBucket integration, creating credentials if not created already"
 	 if ! awx -k --conf.token=$TOKEN credentials list|grep "$GITCREDNAME" >/dev/null; then
         	awx -k --conf.token $TOKEN credentials create --credential_type 'Source Control' --name "$GITCREDNAME" --user admin --inputs '{ "username": "'"$GITCREDUSER"'", "password": "'"$GITCREDPASS"'" }'
 	fi
 fi
+
+echo "Create Red Hat Cloud/Private Automation hub integration"
+awx -k --conf.token $TOKEN credentials create --credential_type 'Ansible Galaxy/Automation Hub API Token' --name "Red Hat Cloud Automation Hub" --organization Default --inputs '{ "url": "'"$GALAXY_SERVER_URL"'", "auth_url": "'"$AUTH_SERVER_URL"'", "token": "'"$API_TOKEN"'" }'
+
+echo "Fetch Automation hub credential id"
+HUB_CREDENTIAL_ID=$(awx -k --conf.token $TOKEN credentials get "Red Hat Cloud Automation Hub"|grep id|head -1|cut -d: -f2|sed -e 's/ //g' -e 's/,//g')
+
+echo "Associate credential with Default organization"
+awx -k --conf.token $TOKEN organizations associate --galaxy_credential $HUB_CREDENTIAL_ID 1
 
 echo "Checking if Controller configuration project has been created, creating it if not there."
 if ! awx -k --conf.token=$TOKEN projects list|grep "controller_configuration" >/dev/null; then
@@ -55,13 +64,15 @@ if [ "$LDAP_ENABLED" == "true" ]; then
 fi
 
 echo "Fetching Controller configuration project ID"
-PROJECTID=$( awx -k --conf.token=$TOKEN project list|grep "controller_configuration"|grep "local_path"|cut -d: -f2|sed -e 's/"//g' -e 's/__.*//g' -e 's/ _//g')
+PROJECTID=$(awx -k --conf.token=$TOKEN project list|grep "controller_configuration"|grep "local_path"|cut -d: -f2|sed -e 's/"//g' -e 's/__.*//g' -e 's/ _//g')
 
 echo "Creating Controller configuration vault."
 awx -k --conf.token $TOKEN credentials create --credential_type 'Vault' --name "$VAULTNAME" --organization Default --inputs '{ "vault_password": "'"$VAULTPASS"'" }'
 
 VAULTID=$( awx -k --conf.token $TOKEN credentials get "$VAULTNAME"|grep id|head -1|cut -d: -f2|sed -e 's/ //g' -e 's/,//g')
 
+echo "Waiting for project to sync"
+sleep 15
 echo "Creating Controller configuration job template"
 awx -k --conf.token=$TOKEN job_templates create --name "Controller Synchronization" --organization 1 --project $PROJECTID --playbook "aap-synchronization.yml" --description "Job which configures the Controller cluster, stored at $SCM_URL" --inventory 1 --limit localhost --extra_vars "{ load_balancer_fqdn: $LOAD_BALANCER_FQDN, controller_hostname: $(hostname -f), controller_fqdn: $(hostname -f) }"
 
@@ -79,4 +90,4 @@ if echo $1|grep -i "delete" >/dev/null; then
       	  	fi
 	fi
 fi
- 
+

@@ -18,6 +18,13 @@ SCM_URL=
 # Branch in version control repository to use
 SCM_BRANCH=
 
+# Red Hat Cloud or Private Automation Hub credentials name
+AAHNAME="Red Hat Cloud Automation Hub"
+GALAXY_SERVER_URL=
+AUTH_SERVER_URL=https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token
+API_TOKEN=
+
+
 ##########################
 # OPTIONAL SETTINGS BELOW
 ##########################
