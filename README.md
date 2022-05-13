@@ -83,6 +83,39 @@ vi ~/.bootstrap.cfg
 7. Connect CI-engine or version control system web hooks to run "Controller Synchronization" and "Customer synchronization - Customer X" job templates.
 8. Connect monitoring system or advanced load blanacer to run "Controller Synchronization" and "Customer synchronization - Customer X" job templates at a point of failure.
 
+## Setup (demo)
+To add a new customer, you need:
+* A repository which holds the configuration, such as: https://github.com/RedHatNordicsSA/customer-x-as-code
+* Define the following in https://github.com/RedHatNordicsSA/controller_configuration/tree/main/controller:
+```
+In organizations.yml:
+---
+controller_organizations:
+  - name: customer-y
+    galaxy_credentials:
+      - "Red Hat Cloud Automation Hub"
+      - "Ansible Galaxy"
+...
+
+In templates.yml:
+---
+controller_templates:
+  - name: Customer synchronization - Customer Y
+    description: Syncs in automation defined in https://github.com/RedHatNordicsSA/customer-y-as-code
+    job_type: run
+    inventory: "Demo Inventory"
+    credentials: "automationvault"
+    project: "customer_configuration"
+    playbook: aap-synchronization.yml
+    verbosity: 0
+    credentials:
+      - "automationvault"
+    extra_vars:
+      customer_organization: customer-y
+      customer_git_repo: https://github.com/RedHatNordicsSA/customer-y-as-code
+      customer_git_branch: main
+      load_balancer_fqdn: loadbalancer.domain.suffix
+```
 
 # Red Hat Communities of Practice Controller Configuration Collection
 
