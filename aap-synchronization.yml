@@ -17,6 +17,14 @@
     - ansible.controller
     - redhat_cop.controller_configuration
   pre_tasks:
+    - name: Fetch local FQDN
+      command: hostname -f
+      register: local_hostname
+
+    - name: Set controller_hostname
+      set_fact:
+        controller_hostname: "{{ local_hostname.stdout }}"
+
     - name: Include vars from configs directory
       include_vars:
         dir: ./controller
@@ -42,14 +50,6 @@
     - {role: roles, when: controller_roles is defined, tags: roles}
 
   tasks:
-    - name: Fetch local FQDN
-      command: hostname -f
-      register: local_hostname
-
-    - name: Set controller_hostname
-      set_fact:
-        controller_hostname: "{{ local_hostname.stdout }}"
-
     - name: Set schedule to be default off
       set_fact:
         schedules_activation: False
