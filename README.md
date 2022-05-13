@@ -10,8 +10,9 @@ If you are not planning of providing automation as a service for others, ignore 
 Consists of load balancer in front of two separate AAP clusters, both which are online all the time. One cluster is active, and provides an interface for users, API calls and runs scheduled tasks. The other cluser is standing by to receive traffic from the load balancer in case of failure or if we are doing a green-blue type upgrade.
 
 ## Key advantage
+* Supports full disaster recovery and 99,999% high availability
 * Convergence time is very short (1-3 seconds). Time passed from going down to service coming up again can in this way be as little as can be provided by the load balancer. That makes this a good fit for usecases when automation must not fail.
-* Allows for blue-green type upgrades, also between major releases (AAP 1.2 -> 2.1), further reducing risk and increasing availability.
+* Allows for blue-green type upgrades, also between major releases (AAP 1.2 -> 2.1), this further reduces risk and increases availability.
 * The simple nature of the setup makes it robust and easier to manage than setups which depends on database replication or other infrastructure based HA functions.
 
 ## Key consideration
@@ -21,13 +22,14 @@ Consists of load balancer in front of two separate AAP clusters, both which are 
 * You will need to keep yourself in sync with https://github.com/redhat-cop/controller_configuration, this is currently not a difficult task, but that may not be the case in the future.
 
 # To be done
-Bootstrap script.
+Simple script which keeps repo in sync with https://github.com/redhat-cop/controller_configuration
+Instructions on production grade implementation
 
 # Getting started
 Here's how to get started on implementing this architecture.
 
 ## Attention
-Don't re-use this repository for any production purposes. This repository and related ones are here to inspire you regarding what is possible. It is not:
+Don't re-use this repository for anything else than test purposes. This repository and related ones are here to inspire you regarding what is possible. It is not:
 1. Maintained to always be in sync with https://github.com/redhat-cop/controller_configuration
 2. Production grade (all changes tested, vetted, etc)
 
