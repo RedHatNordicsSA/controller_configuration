@@ -43,13 +43,17 @@
     - {role: roles, when: controller_roles is defined, tags: roles}
 
   tasks:
+    - name: Fetch local FQDN
+      command: hostname -f
+      register: local_hostname
+
     - name: Set schedule to be default off
       set_fact:
         schedules_activation: False
 
     - name: Fetch local cluster install uuid
       uri:
-        url: https://localhost/api/v2/ping/
+        url: https://{{ local_hostname.stdout }}/api/v2/ping/
         validate_certs: false
       register: local_cluster
 
