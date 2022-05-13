@@ -50,9 +50,13 @@
       command: "curl -k https://{{ controller_fqdn }}/api/v2/ping/"
       register: local_cluster
 
+    - name: Convert to json
+      set_fact: "{{ local_cluster.stdout | from_json }}"
+      register: local_data
+
     - name: Local cluster install uuid
       debug:
-        msg: "{{ local_cluster.json.install_uuid }}"
+        msg: "{{ local_data.json.install_uuid }}"
       
     - name: Fetch cluster install uuid via the load balancer
       command: "curl -k https://{{ load_balancer_fqdn }}/api/v2/ping/"
