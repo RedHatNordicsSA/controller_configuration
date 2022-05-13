@@ -1,0 +1,52 @@
+# Configuration file for Controller bootstrap script
+# Below variables needs to be set for bootstrap.sh to function
+
+##########################
+# REQUIRED SETTINGS BELOW
+##########################
+
+# AAP admin password
+ADMINPASS=
+
+# Vault password used to decrypt secrets in aap-synchronization.yml
+VAULTPASS=
+# Name of vault used to decrypt secrets in aap-synchronization.yml
+VAULTNAME=automationvault
+
+# Url to version control system
+SCM_URL=
+# Branch in version control repository to use
+SCM_BRANCH=
+
+##########################
+# OPTIONAL SETTINGS BELOW
+##########################
+
+# Set to true if you require authentication to integrate to a version control system
+GIT_AUTH_ENABLED=false
+# Name of credential in AAP
+GITCREDNAME=
+# Username to integrate to git
+GITUSER=
+# Password to integrate to git
+GITPASS=
+
+# Set to true if you require integration to LDAP such as Active Directory
+LDAP_ENABLE=false
+# Service account to integrate to LDAP
+LDAPUSER=
+# Service account password to integrate to LDAP
+LDAPPASS=
+# LDAP integration details, see: https://docs.ansible.com/automation-controller/latest/html/administration/ldap_auth.html
+AUTH_LDAP_SERVER_URI=
+AUTH_LDAP_BIND_PASSWORD=
+AUTH_LDAP_GROUP_TYPE=
+AUTH_LDAP_USER_SEARCH=
+AUTH_LDAP_GROUP_SEARCH=
+AUTH_LDAP_USER_ATTR_MAP=
+
+# Set to true if you do have a load balancer infront of the cluster
+LDB_ENABLED=false
+
+# FQDN of load balancing address
+LOAD_BALANCER_FQDN=
