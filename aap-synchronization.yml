@@ -54,7 +54,7 @@
 
     - name: Debug
       debug:
-        msg: "{{ local_cluster.json }}"
+        msg: "{{ local_cluster.json.install_uuid }}"
       
     - name: Fetch cluster install uuid via the load balancer
       uri:
