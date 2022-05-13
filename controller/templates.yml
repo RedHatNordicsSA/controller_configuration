@@ -20,5 +20,5 @@ controller_templates:
       customer_git_branch: main
       controller_hostname: "{{ controller_hostname }}"
       controller_fqdn: "{{ controller_fqdn }}"
-      load_balancer_fqdn: aap2one.sudo.net
+      load_balancer_fqdn: "{{ load_balancer_fqdn }}"
 ...
