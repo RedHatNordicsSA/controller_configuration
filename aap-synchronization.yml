@@ -52,19 +52,23 @@
         validate_certs: false
       register: local_cluster
 
+    - name: Convert to json
+      set_fact:
+        local_result: "{{ local_cluster.stdout | from_json }}"
+
     - name: Fetch cluster install uuid via the load balancer
       uri:
         url: https://{{ load_balancer_fqdn }}/api/v2/ping/
         validate_certs: false
       register: ldb_cluster
 
-    - name: Debug
-      debug:
-        msg: "Ldb install_uuid: {{ ldb_cluster }} and local_cluster install_uuid: {{ local_cluster }}"
+    - name: Convert to json
+      set_fact:
+        ldb_result: "{{ ldb_cluster.stdout | from_json }}"
 
     - name: Debug
       debug:
-        msg: "{{ local_cluster.install_uuid }}"
+        msg: "{{ ldb_result }}"
 
     - name: Set schedule mode depending on if we are active cluster or not
       set_fact:
