@@ -34,6 +34,7 @@ Don't re-use this repository for anything else than test purposes. This reposito
 If you think this is a good idea, do this yourself in repositories you control.
 
 ## Prerequisites
+0. Password used in the current aap-synchronization.yml playbook for the admin user is: redhat123
 1. Two preferrably empty Ansible Automation Platform controller clusters. Installation guide: https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.1/html/red_hat_ansible_automation_platform_installation_guide/index
 2. A Load balancer infront of your two clusters, use whatever you like for this. In production type environments, it should be a load balancing cluster stretching your two datacenters or two availability zones / locations.
 3. A version control system
