@@ -66,11 +66,20 @@ On _both_ your AAP controller clusters:
 git clone https://github.com/RedHatNordicsSA/controller_configuration
 ```
 
-2. Adapt bootstrap configuration
+2. Adapt bootstrap configuration and aap-synchronization.yml playbook
 ```
 cp controller_configuration/bootstrap/bootstrap.cfg-example ~/.bootstrap.cfg
 chmod 600 ~/.bootstrap.cfg
 vi ~/.bootstrap.cfg
+```
+
+```
+Generate an Ansible vault for your admin Controller user.
+$ ansible-vault encrypt_string
+password<CTRL-D><CTRL-D>
+$
+# Copy vault and put it into:
+vi controller_configuration/aap-synchronization.yml
 ```
 
 3. Run bootstrap script. This will setup the initial job template which will full in all the other configuration.
