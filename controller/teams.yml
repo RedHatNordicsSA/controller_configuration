@@ -1,4 +1,4 @@
 controller_teams:
-  - name: Customer-x
-    description: customer-x
+  - name: customer-x-users
+    description: "customer-x administrators"
     organization: customer-x
