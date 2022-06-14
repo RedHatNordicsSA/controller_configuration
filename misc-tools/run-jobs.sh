@@ -1,5 +1,8 @@
 #!/bin/bash
 # Script which triggers sync of job templates from outside of AAP
+# If you have a monitoring system detecting failovers, you can have it run this script run all sync jobs
+# Can also be used in case of disaster recover
+# 
 # Magnus Glantz, sudo@redhat.com, 2022
 
 # Source token from .token.cfg file
