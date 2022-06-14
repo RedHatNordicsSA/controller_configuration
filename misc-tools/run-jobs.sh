@@ -6,6 +6,12 @@
 # If it doesn't exist, create file containing: TOKEN="your token"
 . ~/.token.cfg
 
+if ! rpm -qa|grep jq >/dev/null
+then
+	echo "Error: You need to run: dnf install jq"
+	exit 1
+fi
+
 # Number of job id's we will iterate through, adjust as required
 for i in {1..200}
 do
