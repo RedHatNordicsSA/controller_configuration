@@ -2,6 +2,7 @@
 controller_user_accounts:
   - user: customer-x-user
     is_superuser: false
+    organization: customer-x
     password: !vault |
           $ANSIBLE_VAULT;1.1;AES256
           64396535343463626438643331643861303365626137303166373363303766373932343461373164
