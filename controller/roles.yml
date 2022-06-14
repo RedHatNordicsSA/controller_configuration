@@ -1,6 +1,6 @@
 ---
 controller_roles:
 - user: "customer-x-user"
-  target_team: "customer-x"
+  target_team: "customer-x-admins"
   role: member
   organization: "customer-x"
